@@ -15,7 +15,7 @@ import uuid
 
 async def send_message(message):
     # 发送数据
-    if Cosmic.websocket is None:
+    if Cosmic.websocket is None or Cosmic.websocket.state == websockets.State.CLOSED:
         if message['is_final']:
             Cosmic.audio_files.pop(message['task_id'])
             console.print('    服务端未连接，无法发送\n')
