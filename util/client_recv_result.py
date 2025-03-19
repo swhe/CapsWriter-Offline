@@ -44,6 +44,9 @@ async def recv_result():
 
                 # 记录写入 md 文件
                 write_md(text, message['time_start'], file_audio)
+            else:
+                # alwasy write to md
+                write_md(text, message['time_start'], None)
 
             # 控制台输出
             console.print(f'    转录时延：{delay:.2f}s')

@@ -1,3 +1,4 @@
+from config import ClientConfig as Config
 from util.hot_kwds import kwd_list
 import time
 from pathlib import Path
@@ -59,6 +60,9 @@ def write_md(text: str, time_start: float, file_audio: Path):
 
         # 写入 md
         with open(file_md, 'a', encoding="utf-8") as f:
-            path_ = file_audio.relative_to(file_md.parent).as_posix().replace(" ", "%20")
+            if Config.save_audio:
+                path_ = file_audio.relative_to(file_md.parent).as_posix().replace(" ", "%20")
+            else:
+                path_ = "-"
             text_ = text[len(kwd):].lstrip("，。,.")
             f.write(f'[{time_hms}]({path_}) {text_}\n\n')
