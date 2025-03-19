@@ -41,6 +41,8 @@ if system() == 'Darwin' and not sys.argv[1:]:
     else:
         os.umask(0o000)
 
+def do_exit(signum, frame):
+    sys.exit(1)
 
 async def main_mic():
     Cosmic.loop = asyncio.get_event_loop()
@@ -59,7 +61,8 @@ async def main_mic():
     Cosmic.stream = stream_open()
 
     # Ctrl-C 关闭音频流，触发自动重启
-    signal.signal(signal.SIGINT, stream_close)
+    #signal.signal(signal.SIGINT, stream_close)
+    signal.signal(signal.SIGINT, do_exit)
 
     # 绑定按键
     bond_shortcut()
